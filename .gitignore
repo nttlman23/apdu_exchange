@@ -1,0 +1,5 @@
+*.cfg.bck
+*.xml.bck
+*.pro.user
+*.pro.user.*
+

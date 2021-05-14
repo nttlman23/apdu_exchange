@@ -1,0 +1,15 @@
+Source: testex
+Section: unknown
+Priority: optional
+Maintainer: maintainer first name and last name <maintainer@email.org>
+Build-Depends: debhelper, qt5-default 
+Standards-Version: 3.9.5
+Homepage: <insert the upstream URL, if relevant>
+#Vcs-Git:
+#Vcs-Browser:
+
+Package: testex
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, qt5-default, libpcsclite1, libccid, libconfig++-dev, pcscd
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

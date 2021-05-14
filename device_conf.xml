@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <commands>
+        <preset id="Applet">
+            <command name="Select Applet" cla="00" ins="A4" p1="04" p2="00" len="08" data="A000000000000000"/>
+        </preset>
+    </commands>
+    <sequences>
+        <sequence id="test">
+            <command name="Select Applet" cla="00" ins="A4" p1="04" p2="00" len="08" data="A000000000000000" ansLen="2" ansLenMin="2" ansLenMax="2" SW1="90" SW2="00" save2Buf1="false" save2Buf2="false" loadFromBuf1="false" loadFromBuf2="false" resetUSB="false"/>
+            <command name="Select Applet" cla="00" ins="A4" p1="04" p2="00" len="08" data="A000000000000000" ansLen="2" ansLenMin="2" ansLenMax="2" SW1="90" SW2="00" save2Buf1="false" save2Buf2="false" loadFromBuf1="false" loadFromBuf2="false" resetUSB="false"/>
+        </sequence>
+    </sequences>
+</configuration>

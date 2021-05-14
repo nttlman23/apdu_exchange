@@ -1,0 +1,72 @@
+#!/bin/sh
+
+PACKVER=`cat VERSION`
+BUILDDIRTEMPLATE="testex-"
+BUILDDIRTARGET="$BUILDDIRTEMPLATE$PACKVER"
+PACKNAME="testex_$PACKVER-1_"
+
+RELVER=$(lsb_release -c | awk '{ print $2 }')
+FULLPACKNAME=$PACKNAME$RELVER'_'"amd64.deb"
+
+rm -rf $BUILDDIRTEMPLATE*
+mkdir -p $BUILDDIRTARGET
+
+cp testex.pro "$BUILDDIRTARGET"
+
+cd $BUILDDIRTARGET
+
+rm -rf builddir
+rm -rf ../*.orig.tar.xz
+rm -rf ../*.debian.tar.gz
+rm -rf ../*.dsc
+rm -rf ../*.changes
+rm -rf ../*.deb
+rm -rf ../*.orig.tar.xz
+rm -rf debian/
+
+rm -rf src/
+mkdir -p src
+
+cp -r ../* src/
+
+rm -rf src/build
+rm -rf src/testex-1.1
+rm -rf src/back_debian
+rm -rf src/docs/
+rm -rf src/libs/
+rm -rf src/hidapi/
+rm -rf src/libconfig/
+rm -rf src/test_ex.pro.user
+rm -rf src/test_ex.pro.user.*
+rm -rf src/testex-1*
+rm -rf src/*.changes
+rm -rf src/*.gz
+rm -rf src/*.dsc
+rm -rf src/*.xz
+rm -rf src/Makefile
+rm -rf src/debug/
+rm -rf src/release/
+rm -rf src/Makefile.Debug
+rm -rf src/Makefile.Release
+rm -rf src/ui_*
+rm -rf src/uic_*
+rm -rf src/*plugin_import*
+rm -rf src/testex_resource.rc
+rm -rf src/log_test/
+rm -rf src/qrc_test_ex.cpp
+
+cp -f ../test_ex.pro src/src.pro
+
+dh_make -y --createorig --single -e maintainer@email.org -c gpl
+
+cp -f ../back_debian/* debian/
+dpkg-buildpackage
+cd ../ && mv *.deb build/$FULLPACKNAME
+
+rm -rf $BUILDDIRTEMPLATE*
+rm -rf *.orig.tar.xz
+rm -rf *.debian.tar.gz
+rm -rf *.dsc
+rm -rf *.changes
+rm -rf *.orig.tar.xz
+

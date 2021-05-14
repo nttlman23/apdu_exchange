@@ -1,0 +1,42 @@
+#!/usr/bin/make -f
+APPNAME := testex
+builddir:
+	mkdir -p builddir
+
+builddir/Makefile: builddir
+	cd builddir && /usr/bin/qmake PREFIX=/usr ../$(APPNAME).pro
+
+build: build-stamp
+
+build-stamp: builddir/Makefile
+	cd builddir && $(MAKE)
+	#touch $@
+
+clean:
+	#rm -f build-stamp
+	rm -rf builddir
+	dh_clean
+
+install: build
+	dh_installdirs
+	cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
+
+# Build architecture-independent files here.
+binary-indep: build install
+
+# We have nothing to do by default.
+
+build-arch: build
+
+# Build architecture-dependent files here.
+binary-arch: build-arch binary-indep
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb	
+
+binary: binary-arch
+.PHONY: build clean binary-indep binary-arch install binary
